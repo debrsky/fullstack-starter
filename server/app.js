@@ -5,6 +5,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const responseTime = require('response-time');
 
 const sessions = require('./lib/sessions');
 const {setAuthorize, isLoggedIn} = require('./lib/auth.js');
@@ -13,6 +14,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
 const app = express();
+app.use(responseTime());
 
 if (process.env.NODE_ENV === 'development') {
 	// https://bytearcher.com/articles/refresh-changes-browser-express-livereload-nodemon/
