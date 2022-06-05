@@ -1,0 +1,46 @@
+doctype html
+html.page(lang="ru")
+	head
+		meta(charset="utf-8")
+		meta(name="viewport", content="width=device-width, initial-scale=1")
+		title=title
+		link(rel="stylesheet", href="/vendor/sanitize.css")
+		link(rel="stylesheet", href="/css/style.css")
+		style.
+			.form {
+				border: 1px solid lightgrey;
+				box-shadow: 0 1em 1.5em 0 lightgrey;
+			}
+			.center-content {
+				display: flex;
+				place-content: center;
+				place-items: center;
+				height: 100%;
+			}
+			.form-control {
+				padding: 0.2em;
+			}
+			.form-control_title {
+				margin-right: 0.5ch;
+			}
+
+			.form-panel {
+				padding: 0.5em;
+			}
+			.form-panel:not(:first-child) {
+				border-top: 1px solid lightgrey;
+			}
+	body.page__body
+		main.center-content
+			form.form.form--login(name="form", method="post")
+				.form-panel
+					.form-control
+						label
+							span.form-control_title username
+							input.form__input(type="text", name="username", value="user")
+					.form-control
+						label
+							span.form-control_title password
+							input.form__input(type="password", name="password", value="password")
+				.form-panel 
+					button(type="submit") Отправить

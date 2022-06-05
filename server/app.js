@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
 const sessions = require('./lib/sessions');
+const {setAuthorize, isLoggedIn} = require('./lib/auth.js');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -31,8 +32,11 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 
 app.use(sessions());
+setAuthorize(app);
 
 app.use(express.static(config.public));
+
+app.use(isLoggedIn);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
