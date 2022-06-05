@@ -3,8 +3,8 @@
 	"version": "0.0.0",
 	"private": true,
 	"engines": {
-		"npm": ">=8.1.2",
-		"node": ">=16.13.1"
+		"npm": "8.x",
+		"node": "16.x"
 	},
 	"scripts": {
 		"start": "gulp build && node ./server/bin/www",
