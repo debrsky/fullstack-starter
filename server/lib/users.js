@@ -2,7 +2,7 @@ const config = require('../../config.js');
 const fs = require('fs').promises;
 const writeFileAtomic = require('write-file-atomic');
 const path = require('path');
-const {pbkdf2, randomBytes} = require('crypto');
+const {pbkdf2, randomBytes, timingSafeEqual} = require('crypto');
 
 const ITERATIONS = 100000;
 const KEYLEN = 32;
@@ -32,7 +32,13 @@ async function getUserByNamePassword(username, password) {
 		KEYLEN,
 		DIGEST
 	);
-	if (!user.derivedKey === derivedKey) return null;
+	if (
+		!timingSafeEqual(
+			Buffer.from(user.derivedKey, ENCODING),
+			Buffer.from(derivedKey, ENCODING)
+		)
+	)
+		return null;
 
 	return user;
 }
