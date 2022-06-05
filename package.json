@@ -7,7 +7,7 @@
 		"node": "16.x"
 	},
 	"scripts": {
-		"start": "gulp build && node ./server/bin/www",
+		"start": "node ./server/bin/www",
 		"dev-server": "nodemon ./server/bin/www",
 		"dev-front": "gulp watch",
 		"dev-concurrently": "concurrently --kill-others \"npm run dev-front\" \"npm run dev-server\"",
