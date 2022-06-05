@@ -17,6 +17,9 @@
 		"lint:pug": "pug-lint .",
 		"lint:style": "stylelint front-src/less/**/*.less"
 	},
+	"optionalDependencies": {
+		"fsevents": "2.x.x"
+	},
 	"dependencies": {
 		"connect-livereload": "^0.6.1",
 		"cookie-parser": "~1.4.4",
