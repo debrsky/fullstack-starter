@@ -1,5 +1,3 @@
-// https://bytearcher.com/articles/refresh-changes-browser-express-livereload-nodemon/
-
 const config = require('../config.js');
 
 const createError = require('http-errors');
@@ -14,6 +12,7 @@ const usersRouter = require('./routes/users');
 const app = express();
 
 if (process.env.NODE_ENV === 'development') {
+	// https://bytearcher.com/articles/refresh-changes-browser-express-livereload-nodemon/
 	const connectLivereload = require('connect-livereload');
 	app.use(connectLivereload());
 }
