@@ -4,18 +4,24 @@ html.page(lang="ru")
 		meta(charset="utf-8")
 		meta(name="viewport", content="width=device-width, initial-scale=1")
 		title=title
-		link(rel="stylesheet", href="/vendor/sanitize.css")
+		//- link(rel="stylesheet", href="/vendor/sanitize.css")
 		link(rel="stylesheet", href="/css/style.css")
 		style.
-			.form {
-				border: 1px solid lightgrey;
-				box-shadow: 0 1em 1.5em 0 lightgrey;
+			body {
+				display: flex;
+				flex-direction: column;
+			}
+			main {
+				flex-grow: 1;
 			}
 			.center-content {
 				display: flex;
 				place-content: center;
 				place-items: center;
-				height: 100%;
+			}
+			.form {
+				border: 1px solid lightgrey;
+				box-shadow: 0 1em 1.5em 0 lightgrey;
 			}
 			.form-control {
 				padding: 0.2em;
