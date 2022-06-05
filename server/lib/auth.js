@@ -12,9 +12,14 @@ function setAuthorize(app) {
 		res.render('login');
 	});
 
-	app.get('/logout', (req, res) => {
-		req.logout();
-		res.redirect('/login');
+	app.get('/logout', (req, res, next) => {
+		// https://owasp.org/www-community/attacks/Session_fixation
+		// https://medium.com/passportjs/fixing-session-fixation-b2b68619c51d
+		// https://github.com/jaredhanson/passport/issues/192
+		req.logout((err) => {
+			if (err) return next(err);
+			res.redirect('/login');
+		});
 	});
 
 	app.post('/login', function (req, res, next) {
