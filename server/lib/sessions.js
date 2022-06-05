@@ -9,7 +9,8 @@ function sessions() {
 	const sessionStorage = path.join(config.rootDir, config.storage, 'sessions');
 	fs.mkdirSync(sessionStorage, {recursive: true});
 	const fileStoreOptions = {
-		path: sessionStorage
+		path: sessionStorage,
+		ttl: 60 * 60 * 24
 	};
 
 	const sessionOptions = {
