@@ -26,7 +26,11 @@ function setAuthorize(app) {
 		passport.authenticate('local', function (err, user, info) {
 			if (err) return next(err);
 
-			if (!user) return res.redirect('/');
+			if (!user) {
+				if (req.xhr) return next(createError(403));
+
+				return res.redirect(req.originalUrl);
+			}
 
 			req.login(user, (err) => {
 				if (err) return next(err);
