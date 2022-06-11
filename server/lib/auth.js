@@ -8,7 +8,7 @@ function setAuthorize(app) {
 	app.use(passport.initialize());
 	app.use(passport.session());
 
-	app.get('/login', (req, res) => {
+	app.get('/login', (_req, res) => {
 		res.render('login');
 	});
 
@@ -23,7 +23,7 @@ function setAuthorize(app) {
 	});
 
 	app.post('/login', function (req, res, next) {
-		passport.authenticate('local', function (err, user, info) {
+		passport.authenticate('local', function (err, user, _info) {
 			if (err) return next(err);
 
 			if (!user) {
