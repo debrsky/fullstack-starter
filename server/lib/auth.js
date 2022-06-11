@@ -8,8 +8,10 @@ function setAuthorize(app) {
 	app.use(passport.initialize());
 	app.use(passport.session());
 
-	app.get('/login', (_req, res) => {
-		res.render('login');
+	app.get('/login', (req, res) => {
+		const message = req.session.message;
+		delete req.session.message;
+		res.render('login', {message});
 	});
 
 	app.get('/logout', (req, res, next) => {
@@ -22,27 +24,35 @@ function setAuthorize(app) {
 		});
 	});
 
-	app.post('/login', function (req, res, next) {
-		passport.authenticate('local', function (err, user, _info) {
+	const authenticateMiddlware = function (req, res, next) {
+		const loginCb = function (err) {
+			if (err) return next(err);
+
+			req.session.save((err) => {
+				if (err) return next(err);
+				if (req.xhr) return res.status(200).end();
+
+				res.redirect('/');
+			});
+		};
+
+		function authCb(err, user, _info) {
 			if (err) return next(err);
 
 			if (!user) {
 				if (req.xhr) return next(createError(403));
 
+				req.session.message = 'Неверное имя пользователя или пароль.';
 				return res.redirect(req.originalUrl);
 			}
 
-			req.login(user, (err) => {
-				if (err) return next(err);
+			req.login(user, loginCb);
+		}
 
-				req.session.save((err) => {
-					if (err) return next(err);
-
-					res.redirect('/');
-				});
-			});
-		})(req, res, next);
-	});
+		const auth = passport.authenticate('local', authCb);
+		auth(req, res, next);
+	};
+	app.post('/login', authenticateMiddlware);
 
 	passport.use(
 		new LocalStrategy((username, password, done) => {
