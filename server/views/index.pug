@@ -2,8 +2,11 @@ extends layout
 
 block content
 	h1=title
-	p Welcome to the excellent #{title}
+	p Welcome, #[em=user.name],  to the excellent #{title}
 	p: q Это внешние кавычки #[q а это внутренние] внешние продолжаются
 	article 
 		h2 Sessions
 		p Counter: #{counter}
+	
+	footer
+		a(href="/logout", style="text-underline-offset: 1px;") Выход
