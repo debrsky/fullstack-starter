@@ -80,6 +80,7 @@ html.page(lang='ru')
 						label
 							span.form-control_title password
 							input.form__input(type='password', name='password', value='password')
+				.form-panel.message(hidden) ERROR
 				.form-panel 
 					button(type='submit') Отправить
 
@@ -101,5 +102,16 @@ html.page(lang='ru')
 					if (res.ok) return window.location.assign('/');
 
 					form.classList.add('form--invalid');
+
+					const msg = document.querySelector('.message');
+					msg.setAttribute('hidden', true);
+
+					if (res.status !== 403) {
+						msg.removeAttribute('hidden');
+						const txt = await res.text();
+						msg.innerHTML = `<p>${res.status} ${res.statusText}</p><p>${txt}</p>`;
+						return;	
+					}
+
 					setTimeout(() => form.classList.remove('form--invalid'), 500);
 				});
