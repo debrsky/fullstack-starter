@@ -1,7 +1,6 @@
 import gulp from 'gulp';
 import gulpLess from 'gulp-less';
 import plumber from 'gulp-plumber';
-import sourcemap from 'gulp-sourcemaps';
 import postcss from 'gulp-postcss';
 import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
@@ -13,15 +12,13 @@ export default function less() {
 
 	const postcssPlugins = [autoprefixer()];
 	if (process.env.NODE_ENV === 'production')
-		postcssPlugins.push(cssnano({preset: 'default'}));
+		postcssPlugins.push(cssnano({ preset: 'default' }));
 
 	return gulp
-		.src(`${SRC_DIR}/less/style.less`)
+		.src(`${SRC_DIR}/less/style.less`, { sourcemaps: true })
 		.pipe(plumber())
-		.pipe(sourcemap.init())
 		.pipe(gulpLess())
 		.pipe(postcss(postcssPlugins))
 		.pipe(rename('style.css'))
-		.pipe(sourcemap.write('.'))
-		.pipe(gulp.dest(`${DEST_DIR}/css`));
+		.pipe(gulp.dest(`${DEST_DIR}/css`, { sourcemaps: '.' }));
 }

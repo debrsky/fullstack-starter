@@ -1,7 +1,9 @@
 import gulp from 'gulp';
 import plumber from 'gulp-plumber';
 import pug from 'gulp-pug';
-import pugLinter from 'gulp-pug-linter';
+
+// 59 vulnerabilities (2 low, 12 moderate, 40 high, 5 critical)
+// import pugLinter from 'gulp-pug-linter';
 
 export default function pug2html() {
 	const SRC_DIR = process.srcDir;
@@ -15,7 +17,7 @@ export default function pug2html() {
 	return gulp
 		.src(`${SRC_DIR}/pages/**/*.pug`)
 		.pipe(plumber())
-		.pipe(pugLinter({reporter: 'default'}))
+		//		.pipe(pugLinter({reporter: 'default'}))
 		.pipe(pug(pugOptions))
 		.pipe(gulp.dest(`${DEST_DIR}`));
 }
